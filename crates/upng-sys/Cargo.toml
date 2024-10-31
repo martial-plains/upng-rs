@@ -10,5 +10,8 @@ bindgen = "0.70.1"
 cc = "1.1.31"
 
 [dev-dependencies]
+glu-sys = "0.1.4"
 libc = "0.2.161"
 libc-stdhandle = "0.1.0"
+sdl2-sys = "0.37.0"
+sdl = "0.3.6"
