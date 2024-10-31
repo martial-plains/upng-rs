@@ -1,0 +1,14 @@
+[package]
+name = "upng-sys"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[build-dependencies]
+bindgen = "0.70.1"
+cc = "1.1.31"
+
+[dev-dependencies]
+libc = "0.2.161"
+libc-stdhandle = "0.1.0"
