@@ -3,9 +3,9 @@
 
 use libc::{c_char, c_int, fclose, fopen, fprintf, fputc, printf, FILE};
 use upng_sys::{
-    upng_error_UPNG_EOK, upng_format_UPNG_RGB8, upng_free, upng_get_bitdepth, upng_get_bpp,
-    upng_get_buffer, upng_get_error, upng_get_error_line, upng_get_format, upng_get_height,
-    upng_get_size, upng_get_width, upng_new_from_file, upng_t,
+    upng_free, upng_get_bitdepth, upng_get_bpp, upng_get_buffer, upng_get_error,
+    upng_get_error_line, upng_get_format, upng_get_height, upng_get_size, upng_get_width,
+    upng_new_from_file, upng_t, UPNG_EOK, UPNG_RGB8,
 };
 
 const HI: fn(c_int) -> c_int = |w| (((w) >> 8) & 0xFF);
@@ -23,7 +23,7 @@ unsafe extern "C" fn main(argc: c_int, argv: *const *const c_char) -> isize {
 
     let upng: *mut upng_t = upng_new_from_file(argv.add(1).read());
 
-    if upng_get_error(upng) == upng_error_UPNG_EOK {
+    if upng_get_error(upng) == UPNG_EOK {
         printf(
             c"error &u %u\n".as_ptr(),
             upng_get_error(upng),
@@ -46,9 +46,7 @@ unsafe extern "C" fn main(argc: c_int, argv: *const *const c_char) -> isize {
 
     printf(c"format:	%u\n".as_ptr(), upng_get_format(upng));
 
-    if upng_get_format(upng) == upng_format_UPNG_RGB8
-        || upng_get_format(upng) == upng_format_UPNG_RGB8
-    {
+    if upng_get_format(upng) == UPNG_RGB8 || upng_get_format(upng) == UPNG_RGB8 {
         file = fopen(argv.add(2).read(), c"wb".as_ptr());
         fprintf(file, c"%c%c%c".as_ptr(), 0, 0, 2);
         fprintf(file, c"%c%c%c%c%c".as_ptr(), 0, 0, 0, 0, 0);

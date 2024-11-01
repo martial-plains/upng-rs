@@ -18,6 +18,9 @@ fn main() {
         // Tell cargo to invalidate the built crate whenever any of the
         // included header files changed.
         .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
+        // Customize bindings
+        .default_enum_style(bindgen::EnumVariation::Consts)
+        .prepend_enum_name(false)
         // Finish the builder and generate the bindings.
         .generate()
         // Unwrap the Result and panic on failure.

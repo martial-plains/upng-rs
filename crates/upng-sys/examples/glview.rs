@@ -16,9 +16,8 @@ use libc::{c_char, c_int, c_uchar, calloc, free, printf};
 use sdl::{gl::ll::SDL_GL_SwapBuffers, video::ll::SDL_SetVideoMode};
 use sdl2_sys::{SDL_Event, SDL_EventType, SDL_Init, SDL_Quit, SDL_WaitEvent, SDL_INIT_VIDEO};
 use upng_sys::{
-    upng_decode, upng_error_UPNG_EOK, upng_free, upng_get_buffer, upng_get_components,
-    upng_get_error, upng_get_error_line, upng_get_height, upng_get_width, upng_new_from_file,
-    upng_t,
+    upng_decode, upng_free, upng_get_buffer, upng_get_components, upng_get_error,
+    upng_get_error_line, upng_get_height, upng_get_width, upng_new_from_file, upng_t, UPNG_EOK,
 };
 
 pub const SDL_OPENGL: u32 = 2;
@@ -118,7 +117,7 @@ unsafe fn load_image(file: *const c_char) -> *mut upng_t {
     let upng = upng_new_from_file(file);
     upng_decode(upng);
 
-    if upng_get_error(upng) != upng_error_UPNG_EOK {
+    if upng_get_error(upng) != UPNG_EOK {
         printf(
             c"error: %u %u\n".as_ptr(),
             upng_get_error(upng),
